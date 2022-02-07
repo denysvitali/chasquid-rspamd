@@ -66,7 +66,7 @@ func main() {
 		Rcpt:     envVarOrNil("RCPT_TO"),
 	}
 	if args.Auth != "" {
-		req.User = &args.Auth
+		req.Password = &args.Auth
 	}
 
 	res, err := c.Scan(&req)

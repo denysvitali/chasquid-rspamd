@@ -11,6 +11,8 @@ type PassType = string
 
 type ScanRequest struct {
 	Body          io.ReadCloser
+	Password      *string
+
 	DeliverTo     *string
 	SourceIP      *string
 	Helo          *string
@@ -66,6 +68,7 @@ func (c *Client) Scan(scanRequest *ScanRequest) (*ScanResult, error) {
 	if err != nil {
 		return nil, fmt.Errorf("unable to create request: %v", err)
 	}
+	addEntry(req, "Password", scanRequest.Password)
 
 	addEntry(req, "Deliver-To", scanRequest.DeliverTo)
 	addEntry(req, "IP", scanRequest.SourceIP)
