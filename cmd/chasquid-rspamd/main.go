@@ -30,11 +30,25 @@ func main() {
 	if err != nil {
 		logger.Fatalf("unable to create rspamd client: %v", err)
 	}
+
+	remoteAddr := os.Getenv("REMOTE_ADDR")
+	from := os.Getenv("MAIL_FROM")
+	ehloDomain := os.Getenv("EHLO_DOMAIN")
+	rcpt := os.Getenv("RCPT_TO")
+
+	req := rspamd.ScanRequest{
+		Body: os.Stdin,
+		SourceIP: &remoteAddr,
+		From: &from,
+		Hostname: &ehloDomain,
+		Rcpt: &rcpt,
+	}
 	if args.Auth != "" {
-		c.SetAuth(args.Auth)
+		req.User = &args.Auth
 	}
 
-	res, err := c.Scan(&rspamd.ScanRequest{Body: os.Stdin})
+
+	res, err := c.Scan(&req)
 	if err != nil {
 		logger.Fatalf("unable to perform scan: %v", err)
 	}
