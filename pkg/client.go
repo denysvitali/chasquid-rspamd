@@ -13,6 +13,11 @@ type HttpClient interface {
 type Client struct {
 	HttpClient HttpClient
 	RspamdUrl  *url.URL
+	auth       string
+}
+
+func (c *Client) SetAuth(auth string) {
+	c.auth = auth
 }
 
 func New(rspamdUrl string) (*Client, error) {

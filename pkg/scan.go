@@ -64,6 +64,10 @@ func (c *Client) Scan(scanRequest *ScanRequest) (*ScanResult, error) {
 		return nil, fmt.Errorf("unable to create request: %v", err)
 	}
 
+	if c.auth != "" {
+		req.Header.Add("User", c.auth)
+	}
+
 	res, err := c.HttpClient.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("unable to execute request: %v", err)

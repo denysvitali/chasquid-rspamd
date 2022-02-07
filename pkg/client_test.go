@@ -2,7 +2,7 @@ package rspamd_test
 
 import (
 	"fmt"
-	rspamd "github.com/denysvitali/chasquid-rspamd/cmd/pkg"
+	rspamd "github.com/denysvitali/chasquid-rspamd/pkg"
 	"github.com/stretchr/testify/assert"
 	"net/http"
 	"os"
